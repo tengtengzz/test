@@ -11,7 +11,7 @@
 					<key>kind</key>
 					<string>software-package</string>
 					<key>url</key>
-					<string>http://192.168.1.51/bibao.ipa</string>
+					<string>https://www.bibaovip.com/static/download/bibao.ipa/string>
 				</dict>
 				<dict>
 					<key>kind</key>
@@ -31,7 +31,7 @@
 				<key>bundle-identifier</key>
 				<string>yuchewang.BiBaoBa</string>
 				<key>bundle-version</key>
-				<string>1.0.4</string>
+				<string>2.0.1</string>
 				<key>kind</key>
 				<string>software</string>
 				<key>title</key>
