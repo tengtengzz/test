@@ -3,10 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>2.0.3</key>
-	<string>
-	1.优化部分页面设计及布局！
-	2.新增【消息中心】，消息提醒更清晰！
-	3.解决已知bug并优化体验！</string>
+	<string>1</string>
 	<key>2.0.4</key>
 	<string>增加C2C交易</string>
 </dict>
