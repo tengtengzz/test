@@ -1,4 +1,4 @@
-defineClass('MainSubviewViewController', {
+2.0.41|defineClass('MainSubviewViewController', {
   handleBtn: function(sender) {
     var tableViewCtrl = JPTableViewController.alloc().init()
     self.navigationController().pushViewController_animated(tableViewCtrl, YES)
