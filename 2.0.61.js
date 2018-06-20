@@ -10,7 +10,7 @@ defineClass('MyMoeyManagementViewController', {
             var vc = OneCoinMoneyChangeListViewController.alloc().init();
             vc.setSelectCoinType(cell.model().coinType().integerValue());
             self.navigationController().pushViewController_animated(vc, YES);
-            } else if (button.tag() == 3) {
+            } else if (button.tag() == 2) {
             //        充币
             var bibiOrderVC = BeginTranferMoneyViewController.alloc().init();
             bibiOrderVC.setSelectCoinType(cell.model().coinType().integerValue());
