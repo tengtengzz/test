@@ -1,4 +1,4 @@
-1|require('UIBarButtonItem,OneCoinMoneyChangeListViewController,BeginTranferMoneyViewController,GetMoneyViewController');
+2.0.41|require('UIBarButtonItem,OneCoinMoneyChangeListViewController,BeginTranferMoneyViewController,GetMoneyViewController');
 defineClass('MyMoeyManagementViewController', {
             myMoeyManagementTableViewCell_button: function(cell, button) {
             if (button.tag() == 1) {
