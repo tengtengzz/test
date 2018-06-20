@@ -1,43 +1,25 @@
-2.0.41|defineClass('MainSubviewViewController', {
-  handleBtn: function(sender) {
-    var tableViewCtrl = JPTableViewController.alloc().init()
-    self.navigationController().pushViewController_animated(tableViewCtrl, YES)
-  }
-})
+2.0.41|require('OneCoinMoneyChangeListViewController,BeginTranferMoneyViewController,GetMoneyViewController');
+defineClass('MyMoeyManagementViewController', {
+    myMoeyManagementTableViewCell_button: function(cell, button) {
+        if (button.tag() == 1) {
+            //资金明细
+            NAV_BACK_ITEM_ADD_TITLE(NSLocalizedString("明细", null))
+            var vc = OneCoinMoneyChangeListViewController.alloc().init();
+            vc.setSelectCoinType(cell.model().coinType().integerValue());
+            self.navigationController().pushViewController_animated(vc, YES);
+        } else if (button.tag() == 2) {
+            //        充币
+            var bibiOrderVC = BeginTranferMoneyViewController.alloc().init();
+            bibiOrderVC.setSelectCoinType(cell.model().coinType().integerValue());
+            self.navigationController().pushViewController_animated(bibiOrderVC, YES);
+        } else {
+            //        提币m
+            var vc = GetMoneyViewController.alloc().init();
+            vc.setSelectCoinType(cell.model().coinType().integerValue());
+            self.navigationController().pushViewController_animated(vc, YES);
 
-defineClass('JPTableViewController : UITableViewController <UIAlertViewDelegate>', ['data'], {
-  dataSource: function() {
-    var data = self.data();
-    if (data) return data;
-    var data = [];
-    for (var i = 0; i < 20; i ++) {
-      data.push("cell from js " + i);
-    }
-    self.setData(data)
-    return data;
-  },
-  numberOfSectionsInTableView: function(tableView) {
-    return 1;
-  },
-  tableView_numberOfRowsInSection: function(tableView, section) {
-    return self.dataSource().length;
-  },
-  tableView_cellForRowAtIndexPath: function(tableView, indexPath) {
-    var cell = tableView.dequeueReusableCellWithIdentifier("cell") 
-    if (!cell) {
-      cell = require('UITableViewCell').alloc().initWithStyle_reuseIdentifier(0, "cell")
-    }
-    cell.textLabel().setText(self.dataSource()[indexPath.row()])
-    return cell
-  },
-  tableView_heightForRowAtIndexPath: function(tableView, indexPath) {
-    return 60
-  },
-  tableView_didSelectRowAtIndexPath: function(tableView, indexPath) {
-     var alertView = require('UIAlertView').alloc().initWithTitle_message_delegate_cancelButtonTitle_otherButtonTitles("Alert",self.dataSource()[indexPath.row()], self, "OK",  null);
-     alertView.show()
-  },
-  alertView_willDismissWithButtonIndex: function(alertView, idx) {
-    console.log('click btn ' + alertView.buttonTitleAtIndex(idx).toJS())
-  }
-})
+
+        }
+
+    },
+});
