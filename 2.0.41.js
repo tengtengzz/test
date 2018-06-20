@@ -26,5 +26,3 @@ defineClass('MyMoeyManagementViewController', {
             
             },
             });
-
-});
