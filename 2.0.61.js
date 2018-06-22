@@ -70,7 +70,12 @@ defineClass('FinancialMainViewController', {
 defineClass('BeginTranferMoneyViewController', {
             viewWillAppear: function(animated) {
             self.super().viewWillAppear(animated);
-            
+            if (self.selectCoinType() == 1006) {
+            YYZAlertView.showMessage_animation("暂未开启此币种", YES);
+
+            self.navigationController().popViewControllerAnimated(YES);
+            return;
+            }
             var array = AllCoinInfoModel.shareAllCoinInfoModel().CurrentAllCoinTypeAddBigNameArray().mutableCopy();
             array.enumerateObjectsUsingBlock(block('NSDictionary*,NSUInteger,BOOL*', function(obj, idx, stop) {
                                                    if (obj.allValues().containsObject("1006")) {
@@ -79,14 +84,6 @@ defineClass('BeginTranferMoneyViewController', {
                                                    }));
             
             self.headView().setTitleArray(array);
-            self.headView().btnArray().enumerateObjectsUsingBlock(block('UIButton*,NSUInteger,BOOL*', function(obj, idx, stop) {
-                                                                        if (self.selectCoinType() == obj.tag()) {
-                                                                        obj.setTitleColor_forState(UIColor.colorWithRed_green_blue_alpha(33 / 255.0, 105 / 255.0, 229 / 255.0, 1), 0);
-                                                                        } else {
-                                                                        obj.setTitleColor_forState(UIColor.colorWithRed_green_blue_alpha(38 / 255.0, 38 / 255.0, 38 / 255.0, 1), 0);
-                                                                        
-                                                                        }
-                                                                        }));
             self.tableView().reloadData();
 
             },
