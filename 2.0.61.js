@@ -84,6 +84,14 @@ defineClass('BeginTranferMoneyViewController', {
                                                    }));
             
             self.headView().setTitleArray(array);
+            self.headView().btnArray().enumerateObjectsUsingBlock(block('UIButton*,NSUInteger,BOOL*', function(obj, idx, stop) {
+                                                                        if (self.selectCoinType() == obj.tag()) {
+                                                                        obj.setTitleColor_forState(UIColor.colorWithRed_green_blue_alpha(33 / 255.0, 105 / 255.0, 229 / 255.0, 1), 0);
+                                                                        } else {
+                                                                        obj.setTitleColor_forState(UIColor.colorWithRed_green_blue_alpha(38 / 255.0, 38 / 255.0, 38 / 255.0, 1), 0);
+                                                                        
+                                                                        }
+                                                                        }));
             self.tableView().reloadData();
 
             },
