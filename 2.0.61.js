@@ -1,4 +1,4 @@
-2.0.61|require('UIBarButtonItem,OneCoinMoneyChangeListViewController,BeginTranferMoneyViewController,GetMoneyViewController');
+2.0.61|require('UIBarButtonItem,OneCoinMoneyChangeListViewController,BeginTranferMoneyViewController,GetMoneyViewController,AllCoinInfoModel,FinancialOrderDetailListHeadView,UIColor,YYZAlertView,FinancialBuyInViewController,FinancialMoneyInViewController,FinancialModel');
 defineClass('MyMoeyManagementViewController', {
             myMoeyManagementTableViewCell_button: function(cell, button) {
             if (button.tag() == 1) {
@@ -26,3 +26,62 @@ defineClass('MyMoeyManagementViewController', {
             
             },
             });
+
+defineClass('FinancialMainViewController', {
+            financialListTableViewCell_button: function(cell, btn) {
+            if (self.coinType() == 1006) {
+            YYZAlertView.showMessage_animation("暂未开启此币种", YES);
+            return;
+            }
+            
+            
+            var vc = FinancialBuyInViewController.alloc().init();
+            vc.setCoinType(self.coinType());
+             vc.navigationItem().setTitle("买入");
+            vc.setModel(cell.model());
+            self.navigationController().pushViewController_animated(vc, YES);
+            },
+            financialMainBottomTwoButtonViewWithButton: function(btn) {
+            if (self.coinType() == 1006) {
+            YYZAlertView.showMessage_animation("暂未开启此币种", YES);
+            return;
+            }
+            if (btn.tag() == 147) {
+            
+            var vc = FinancialMoneyInViewController.alloc().init();
+            vc.setFromId(1);
+            vc.setCoinType(self.coinType());
+             vc.navigationItem().setTitle("转入");
+            self.navigationController().pushViewController_animated(vc, YES);
+            
+            } else {
+            var vc = FinancialMoneyInViewController.alloc().init();
+            vc.setFromId(2);
+            vc.setCoinType(self.coinType());
+             vc.navigationItem().setTitle("转出");
+            self.navigationController().pushViewController_animated(vc, YES);
+            
+            }
+            
+            },
+            
+            });
+
+
+defineClass('BeginTranferMoneyViewController', {
+            viewWillAppear: function(animated) {
+            self.super().viewWillAppear(animated);
+            
+            var array = AllCoinInfoModel.shareAllCoinInfoModel().CurrentAllCoinTypeAddBigNameArray().mutableCopy();
+            array.enumerateObjectsUsingBlock(block('NSDictionary*,NSUInteger,BOOL*', function(obj, idx, stop) {
+                                                   if (obj.allValues().containsObject("1006")) {
+                                                   array.removeObject(obj);
+                                                   }
+                                                   }));
+            
+            self.headView().setTitleArray(array);
+            self.tableView().reloadData();
+
+            },
+            });
+
