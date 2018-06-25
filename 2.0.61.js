@@ -7,11 +7,20 @@ defineClass('MyMoeyManagementViewController', {
             vc.setSelectCoinType(cell.model().coinType().integerValue());
             self.navigationController().pushViewController_animated(vc, YES);
             } else if (button.tag() == 2) {
+            if (cell.model().coinType().integerValue() == 1006) {
+            YYZAlertView.showMessage_animation("暂未开启此币种", YES);
+            return;
+            }
+            
             //        充币
             var bibiOrderVC = BeginTranferMoneyViewController.alloc().init();
             bibiOrderVC.setSelectCoinType(cell.model().coinType().integerValue());
             self.navigationController().pushViewController_animated(bibiOrderVC, YES);
             } else {
+            if (cell.model().coinType().integerValue() == 1006) {
+            YYZAlertView.showMessage_animation("暂未开启此币种", YES);
+            return;
+            }
             //        提币m
             var vc = GetMoneyViewController.alloc().init();
             vc.setSelectCoinType(cell.model().coinType().integerValue());
