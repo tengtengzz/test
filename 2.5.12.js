@@ -15,6 +15,6 @@ defineClass('BibiTransferInfoViewController', {
         }
 
         self.updateData();
-        _convertLbl.setHidden(YES);
+        self.convertLbl().setHidden(YES);
     },
 });
