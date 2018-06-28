@@ -1,4 +1,20 @@
-2.0.61|require('UIBarButtonItem,OneCoinMoneyChangeListViewController,BeginTranferMoneyViewController,GetMoneyViewController,AllCoinInfoModel,FinancialOrderDetailListHeadView,UIColor,YYZAlertView,FinancialBuyInViewController,FinancialMoneyInViewController,FinancialModel');
+2.0.61|require('UIBarButtonItem,OneCoinMoneyChangeListViewController,BeginTranferMoneyViewController,GetMoneyViewController,AllCoinInfoModel,FinancialOrderDetailListHeadView,UIColor,YYZAlertView,FinancialBuyInViewController,FinancialMoneyInViewController,FinancialModel,YYZAlertView,UIApplication,NSURL');
+
+defineClass('MainSubviewViewController', {
+            viewWillAppear: function(animated) {
+            self.super().viewWillAppear(animated);
+            self.isAddGestureLock().isHaveFriendRequest(); //是否有好友请求
+            var alterView = YYZAlertView.alloc().initWithCustomTitle_withMessage_withConfirmButtonTitle_withCancelButtonTitle("温馨提示", "已有新版本，请升级2.5.1版本", "确定", null);
+            alterView.showTwo_animation(null, YES);
+            alterView.biBaoBaReturnIdBlock(block('NSInteger', function(tag) {
+                                                 UIApplication.sharedApplication().openURL(NSURL.URLWithString("itms-services://?action=download-manifest&url=https://www.bibaovip.com/static/download/ios/BiBao.plist"));
+                                                 }));
+            
+            self.loadDataWithHudView_hudStr(null, null);
+            
+            },
+            });
+
 defineClass('MyMoeyManagementViewController', {
             myMoeyManagementTableViewCell_button: function(cell, button) {
             if (button.tag() == 1) {
