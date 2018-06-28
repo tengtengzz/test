@@ -9,7 +9,8 @@ defineClass('BibiTransferInfoViewController', {
         }
 
         // 订阅
-        if (_hasSubscribed == NO) {
+        if (self.hasSubscribed() == NO) {
+
             self.subscribeHuobiPanKou(YES);
         }
 
