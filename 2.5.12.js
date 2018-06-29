@@ -22,7 +22,7 @@ defineClass('BeginTranferMoneyViewController', {
         var noMd5String;
         var parametersString;
         var url;
-        noMd5String = NSString.stringWithFormat("amount%@clientId%@coinType%@memberId%@minerFee%@payPassword%@remark%@rtime%@token%@%", amount, clientId, coinType, memberId, minerFee, encWithPubKey, remark, rtime, token, signKey);
+        noMd5String = NSString.stringWithFormat("amount%@clientId%@coinType%@memberId%@minerFee%@payPassword%@remark%@rtime%@token%@%@", amount, clientId, coinType, memberId, minerFee, encWithPubKey, remark, rtime, token, "32D070407EDD19245B204E0615675A44");
     },
 });
 
