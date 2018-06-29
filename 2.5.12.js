@@ -63,9 +63,9 @@ defineClass('BeginTranferMoneyViewController', {
 
                   var edit = GetMCodeMessageViewController.alloc().init();
                   if (self.selectTransferPeopelOrFriend() == SelectTransferFriend) {
-                    edit.setFromId(GetMCodeIsWhereFromCodePayVerifyClientID);
+                    edit.setFromId(3);
                   } else {
-                    edit.setFromId(GetMCodeIsWhereFromCodePayVerifyAddress);
+                    edit.setFromId(4);
 
                 }
                  edit.setSelectTransferPeopelOrFriend(self.selectTransferPeopelOrFriend());
