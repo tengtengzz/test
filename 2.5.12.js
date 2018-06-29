@@ -23,6 +23,19 @@ defineClass('BeginTranferMoneyViewController', {
         var parametersString;
         var url;
         noMd5String = NSString.stringWithFormat("amount%@clientId%@coinType%@memberId%@minerFee%@payPassword%@remark%@rtime%@token%@%@", amount, clientId, coinType, memberId, minerFee, encWithPubKey, remark, rtime, token, "32D070407EDD19245B204E0615675A44");
+    
+         parametersString = NSString.stringWithFormat("amount=%@&&clientId=%@&&coinType=%@&&memberId=%@&&minerFee=%@&&payPassword=%@&&remark=%@&&rtime=%@&&token=%@", amount, clientId, coinType, memberId, minerFee, basePassword, remark, rtime, token);
+        url = "/member/leancloud/red/transfer/one";
+
+
+        var sign = noMd5String.md5();
+
+        WSLNetWorkingTool.postJSONWithUrl_parameters_headerFiled_headerFiledName_hudView_hudStr_success_fail(url, parametersString, sign, "sign", self.view(), "转账中", block('NSDictionary*,NetworkResponseCode,NSString*', function(data, codes, message) {}
+
+        }), block('NSError*', function(error) {
+
+        }));
+    
     },
 });
 
