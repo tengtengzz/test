@@ -3,8 +3,6 @@ require('OwnWebSocketUtil,WebSocketUtil,OneCoinMoneyChangeListViewController,YYZ
 defineClass('BeginTranferMoneyViewController', {
     OkPayViewOkPayPassword: function(payString) {
         self.setPayPwdView(null);
-        self.setPayPwdView(null);
-
         var indexPath = NSIndexPath.indexPathForRow_inSection(0, 0);
         var cell = self.tableView().cellForRowAtIndexPath(indexPath);
         var memberId = Account.sharedAccount().currentUserUid();
