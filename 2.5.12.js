@@ -29,9 +29,43 @@ defineClass('BeginTranferMoneyViewController', {
 
 
         var sign = noMd5String.md5();
-        WSLNetWorkingTool.postJSONWithUrl_parameters_headerFiled_headerFiledName_hudView_hudStr_success_fail(url, parametersString, sign, "sign", self.view(), "转账中", block('NSDictionary*,NetworkResponseCode,NSString*', function(data, codes, message) {}), block('NSError*', function(error) {
+        
+        WSLNetWorkingTool.postJSONWithUrl_parameters_headerFiled_headerFiledName_hudView_hudStr_success_fail(url, parametersString, sign, Head_URL_Sign, self.view(), "转账中", block('NSDictionary*,NetworkResponseCode,NSString*', function(data, codes, message) {
+  
+            if (codes == NetworkResponseCodeSuccess) {
+  
+                
+                dispatch_async(dispatch_get_main_queue(), block(function() {
+                  NSUserDefaults.standardUserDefaults().setValue_forKey(data["result"], "OrderKey");
+                  NSUserDefaults.standardUserDefaults().synchronize();
+                  var dic = NSMutableDictionary.dictionaryWithCapacity(4);
+                  dic.setObject_forKey(remark, "money_transfer_remark");
+                  dic.setObject_forKey(self.acountModel().coinName(), "money_transfer_coinName");
+                  dic.setObject_forKey(coinType, "money_transfer_coinType");
+                  dic.setObject_forKey(amount, "money_transfer_amount");
 
+                  var edit = GetMCodeMessageViewController.alloc().init();
+                  if (self.selectTransferPeopelOrFriend() == SelectTransferFriend) {
+                    edit.setFromId(GetMCodeIsWhereFromCodePayVerifyClientID);
+                  } else {
+                    edit.setFromId(GetMCodeIsWhereFromCodePayVerifyAddress);
+
+                }
+                 edit.setSelectTransferPeopelOrFriend(self.selectTransferPeopelOrFriend());
+                 edit.setOrderDic(dic);
+                 self.navigationController().pushViewController_animated(edit, YES);
+
+
+               }));
+           }
+       
+
+
+        }), block('NSError*', function(error) {
+            
         }));
+        
+
         
     },
 });
