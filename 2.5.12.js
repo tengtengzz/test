@@ -1,4 +1,4 @@
-require('OwnWebSocketUtil,WebSocketUtil,OneCoinMoneyChangeListViewController,YYZAlertView,BeginTranferMoneyViewController,GetMoneyViewController,NSIndexPath,Account,NSString,PublicRSA,NSMutableDictionary,MBProgressHUD,NormalHTTPManger,NSUserDefaults,GetMCodeMessageViewController');
+require('OwnWebSocketUtil,WebSocketUtil,OneCoinMoneyChangeListViewController,YYZAlertView,BeginTranferMoneyViewController,GetMoneyViewController,NSIndexPath,Account,NSString,PublicRSA,NSMutableDictionary,MBProgressHUD,NormalHTTPManger,NSUserDefaults,GetMCodeMessageViewController,NSIndexPath,Account,NSString,Token,PublicRSA,NSCharacterSet,WSLNetWorkingTool');
 defineClass('BeginTranferMoneyViewController', {
     OkPayViewOkPayPassword: function(payString) {
         self.setPayPwdView(null);
@@ -8,61 +8,35 @@ defineClass('BeginTranferMoneyViewController', {
         var memberId = Account.sharedAccount().currentUserUid();
         var coinType = NSString.stringWithFormat("%ld", self.selectCoinType());
         var clientId = self.clientId();
-        var address = self.recommendMCode();
 
         var amount = cell.putMoneyTF().text();
         var minerFee = cell.lastMiner();
         var remark = cell.remarkTF().text();
-        var basePassword = payString;
-        var payPassword = PublicRSA.encryptString_publicKey(basePassword,  "-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCva5zyrSyeg4pedBK9t7UpHgY40++3LXsu7xm0V9o7PsgbtiCkqGVCy/nE9TiMSNscOClliZIRmVpI/Dha2fZsB13bebYmjP1a41q+LVhTOBJSWztdet5ftXklQp0FqUTq3CAMWZKUQTTHNNfRcm5S7dzpdrfyrqO3xh88Mal4qQIDAQAB\n-----END PUBLIC KEY-----");
+        var payPassword = payString;
+        var rtime = self.rtimeString();
+        var token = Token.shareTokenString().currentUserToken();
+
+        var encWithPubKey;
+        encWithPubKey = PublicRSA.encryptString_publicKey(payPassword, "-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCva5zyrSyeg4pedBK9t7UpHgY40++3LXsu7xm0V9o7PsgbtiCkqGVCy/nE9TiMSNscOClliZIRmVpI/Dha2fZsB13bebYmjP1a41q+LVhTOBJSWztdet5ftXklQp0FqUTq3CAMWZKUQTTHNNfRcm5S7dzpdrfyrqO3xh88Mal4qQIDAQAB\n-----END PUBLIC KEY-----");
+        var basePassword = encWithPubKey.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.characterSetWithCharactersInString(":#?@!/###2#####’()*+,;=%<>[\\]^`{|}\"]+").invertedSet());
+
+        var noMd5String;
+        var parametersString;
         var url;
-        var parameters = NSMutableDictionary.dictionaryWithCapacity(0);
-        if (self.selectTransferPeopelOrFriend() == 3) {
-            parameters.setObject_forKey(amount, "amount");
-            parameters.setObject_forKey(clientId, "clientId");
-            parameters.setObject_forKey(coinType, "coinType");
-            parameters.setObject_forKey(memberId, "memberId");
-            parameters.setObject_forKey(minerFee, "minerFee");
-            parameters.setObject_forKey(payPassword, "payPassword");
-            parameters.setObject_forKey(remark, "remark");
+        noMd5String = NSString.stringWithFormat("amount%@clientId%@coinType%@memberId%@minerFee%@payPassword%@remark%@rtime%@token%@%", amount, clientId, coinType, memberId, minerFee, encWithPubKey, remark, rtime, token, signKey);
 
-            url = "/member/leancloud/red/transfer/one";
-
-        } else {
-            if (self.selectCoinType() == 1009) {
-                var xrpTag = self.recommendTag();
-                parameters.setObject_forKey(address, "address");
-                parameters.setObject_forKey(amount, "amount");
-                parameters.setObject_forKey(coinType, "coinType");
-                parameters.setObject_forKey(memberId, "memberId");
-                parameters.setObject_forKey(minerFee, "minerFee");
-                parameters.setObject_forKey(payPassword, "payPassword");
-                parameters.setObject_forKey(remark, "remark");
-                parameters.setObject_forKey(xrpTag, "xrpTag");
-
-            } else {
-                parameters.setObject_forKey(address, "address");
-                parameters.setObject_forKey(amount, "amount");
-                parameters.setObject_forKey(coinType, "coinType");
-                parameters.setObject_forKey(memberId, "memberId");
-                parameters.setObject_forKey(minerFee, "minerFee");
-                parameters.setObject_forKey(payPassword, "payPassword");
-                parameters.setObject_forKey(remark, "remark");
-
-            }
-            url = "/member/account/transfer/one";
-        }
+        parametersString = NSString.stringWithFormat("amount=%@&&clientId=%@&&coinType=%@&&memberId=%@&&minerFee=%@&&payPassword=%@&&remark=%@&&rtime=%@&&token=%", amount, clientId, coinType, memberId, minerFee, basePassword, remark, rtime, token);
+        url = "/member/leancloud/red/transfer/one";
 
 
-        MBProgressHUD.showLoadingMessage_toView(null, self.view());
+        var sign = noMd5String.md5();
 
-        NormalHTTPManger.n_POSTWithAPIName_parameters_completionBlock_failureBlock(url, parameters, block('BOOL,NSInteger,NSString*,id', function(isSuccessful, code, message, responseData) {
- 
-        }), block('NSInteger,NSString*', function(code, errorString) {
+        WSLNetWorkingTool.postJSONWithUrl_parameters_headerFiled_headerFiledName_hudView_hudStr_success_fail(url, parametersString, sign, "sign", self.view(), "转账中", block('NSDictionary*,NetworkResponseCode,NSString*', function(data, codes, message) {}
+
+        }), block('NSError*', function(error) {
+
         }));
-
-
-    },
+},
 });
 
 
