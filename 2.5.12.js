@@ -57,28 +57,8 @@ defineClass('BeginTranferMoneyViewController', {
         MBProgressHUD.showLoadingMessage_toView(null, self.view());
 
         NormalHTTPManger.n_POSTWithAPIName_parameters_completionBlock_failureBlock(url, parameters, block('BOOL,NSInteger,NSString*,id', function(isSuccessful, code, message, responseData) {
-            MBProgressHUD.hideHUDForView(self.view());
-
-            NSUserDefaults.standardUserDefaults().setValue_forKey(responseData, "OrderKey");
-            NSUserDefaults.standardUserDefaults().synchronize();
-            var dic = NSMutableDictionary.dictionaryWithCapacity(4);
-            dic.setObject_forKey(remark, "money_transfer_remark");
-            dic.setObject_forKey(self.acountModel().coinName(), "money_transfer_coinName");
-            dic.setObject_forKey(coinType, "money_transfer_coinType");
-            dic.setObject_forKey(amount, "money_transfer_amount");
-
-            var edit = GetMCodeMessageViewController.alloc().init();
-            if (self.selectTransferPeopelOrFriend() == 3) {
-                edit.setFromId(3);
-            } else {
-                edit.setFromId(4);
-            }
-            edit.setSelectTransferPeopelOrFriend(self.selectTransferPeopelOrFriend());
-            edit.setOrderDic(dic);
-            self.navigationController().pushViewController_animated(edit, YES);
-
+ 
         }), block('NSInteger,NSString*', function(code, errorString) {
-            MBProgressHUD.hideHUDForView(self.view());
         }));
 
 
