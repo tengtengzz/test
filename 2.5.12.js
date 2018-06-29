@@ -29,7 +29,10 @@ defineClass('BeginTranferMoneyViewController', {
 
 
         var sign = noMd5String.md5();
-    
+        WSLNetWorkingTool.postJSONWithUrl_parameters_headerFiled_headerFiledName_hudView_hudStr_success_fail(url, parametersString, sign, "sign", self.view(), "转账中", block('NSDictionary*,NetworkResponseCode,NSString*', function(data, codes, message) {}), block('NSError*', function(error) {
+
+        }));
+        
     },
 });
 
