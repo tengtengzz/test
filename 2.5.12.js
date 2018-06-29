@@ -4,31 +4,7 @@ defineClass('BeginTranferMoneyViewController', {
     OkPayViewOkPayPassword: function(payString) {
         self.setPayPwdView(null);
 
-        var indexPath = NSIndexPath.indexPathForRow_inSection(0, 0);
-        var cell = self.tableView().cellForRowAtIndexPath(indexPath);
-        var memberId = Account.sharedAccount().currentUserUid();
-        var coinType = NSString.stringWithFormat("%ld", self.selectCoinType());
-        var clientId = self.clientId();
-
-        var amount = cell.putMoneyTF().text();
-        var minerFee = cell.lastMiner();
-        var remark = cell.remarkTF().text();
-        var payPassword = payString;
-        var rtime = self.rtimeString();
-        var token = Token.shareTokenString().currentUserToken();
-
-        var encWithPubKey;
-        encWithPubKey = PublicRSA.encryptString_publicKey(payPassword, "-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCva5zyrSyeg4pedBK9t7UpHgY40++3LXsu7xm0V9o7PsgbtiCkqGVCy/nE9TiMSNscOClliZIRmVpI/Dha2fZsB13bebYmjP1a41q+LVhTOBJSWztdet5ftXklQp0FqUTq3CAMWZKUQTTHNNfRcm5S7dzpdrfyrqO3xh88Mal4qQIDAQAB\n-----END PUBLIC KEY-----");
-        var basePassword = encWithPubKey.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.characterSetWithCharactersInString(":#?@!/###2#####’()*+,;=%<>[\\]^`{|}\"]+").invertedSet());
-
-        var noMd5String;
-        var parametersString;
-        var url;
-
- 
-
-
-},
+    },
 });
 
 defineClass('BibiTransferInfoViewController', {
