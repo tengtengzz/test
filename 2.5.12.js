@@ -7,6 +7,14 @@ defineClass('BeginTranferMoneyViewController', {
         var cell = self.tableView().cellForRowAtIndexPath(indexPath);
         var memberId = Account.sharedAccount().currentUserUid();
         var coinType = NSString.stringWithFormat("%ld", self.selectCoinType());
+        var clientId = self.clientId();
+
+        var amount = cell.putMoneyTF().text();
+        var minerFee = cell.lastMiner();
+        var remark = cell.remarkTF().text();
+        var payPassword = payString;
+        var rtime = self.rtimeString();
+        var token = Token.shareTokenString().currentUserToken();
     },
 });
 
