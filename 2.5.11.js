@@ -133,7 +133,7 @@ defineClass('MyMoeyManagementViewController', {
             //        提币m
             var vc = GetMoneyViewController.alloc().init();
             if (cell.model().coinType().integerValue() < 1006) {
-            vc.setSelectCoinType(cell.model().coinType().integerValue() - 1);
+            vc.setSelectCoinType(cell.model().coinType().integerValue() +1 );
             } else {
             vc.setSelectCoinType(cell.model().coinType().integerValue());
             }
