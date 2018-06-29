@@ -22,10 +22,27 @@ defineClass('BeginTranferMoneyViewController', {
         var noMd5String;
         var parametersString;
         var url;
-        noMd5String = NSString.stringWithFormat("amount%@clientId%@coinType%@memberId%@minerFee%@payPassword%@remark%@rtime%@token%@%@", amount, clientId, coinType, memberId, minerFee, encWithPubKey, remark, rtime, token, "32D070407EDD19245B204E0615675A44");
-    
-         parametersString = NSString.stringWithFormat("amount=%@&&clientId=%@&&coinType=%@&&memberId=%@&&minerFee=%@&&payPassword=%@&&remark=%@&&rtime=%@&&token=%@", amount, clientId, coinType, memberId, minerFee, basePassword, remark, rtime, token);
-        url = "/member/leancloud/red/transfer/one";
+        
+        require('NSString');
+        if (self.selectTransferPeopelOrFriend() == 3) {
+           noMd5String = NSString.stringWithFormat("amount%@clientId%@coinType%@memberId%@minerFee%@payPassword%@remark%@rtime%@token%@%@", amount, clientId, coinType, memberId, minerFee, encWithPubKey, remark, rtime, token, "32D070407EDD19245B204E0615675A44");
+
+            parametersString = NSString.stringWithFormat("amount=%@&&clientId=%@&&coinType=%@&&memberId=%@&&minerFee=%@&&payPassword=%@&&remark=%@&&rtime=%@&&token=%@", amount, clientId, coinType, memberId, minerFee, basePassword, remark, rtime, token);
+           url = "/member/leancloud/red/transfer/one";
+
+       } else {
+       if (self.selectCoinType() == 1009) {
+         var xrpTag = self.recommendTag();
+         noMd5String = NSString.stringWithFormat("address%@amount%@coinType%@memberId%@minerFee%@payPassword%@remark%@rtime%@token%@xrpTag%@%@", address, amount, coinType, memberId, minerFee, encWithPubKey, remark, rtime, token, xrpTag, "32D070407EDD19245B204E0615675A44");
+         parametersString = NSString.stringWithFormat("address=%@&&amount=%@&&coinType=%@&&memberId=%@&&minerFee=%@&&payPassword=%@&&remark=%@&&rtime=%@&&token=%@&&xrpTag=%@", address, amount, coinType, memberId, minerFee, basePassword, remark, rtime, token, xrpTag);
+
+     } else {
+        noMd5String = NSString.stringWithFormat("address%@amount%@coinType%@memberId%@minerFee%@payPassword%@remark%@rtime%@token%@%@", address, amount, coinType, memberId, minerFee, encWithPubKey, remark, rtime, token, "32D070407EDD19245B204E0615675A44");
+        parametersString = NSString.stringWithFormat("address=%@&&amount=%@&&coinType=%@&&memberId=%@&&minerFee=%@&&payPassword=%@&&remark=%@&&rtime=%@&&token=%@", address, amount, coinType, memberId, minerFee, basePassword, remark, rtime, token);
+     }
+
+          url = "/member/account/transfer/one";
+    }
 
 
         var sign = noMd5String.md5();
