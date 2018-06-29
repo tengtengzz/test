@@ -1,4 +1,4 @@
-require('OwnWebSocketUtil,WebSocketUtil,OneCoinMoneyChangeListViewController,YYZAlertView,BeginTranferMoneyViewController,GetMoneyViewController,NSIndexPath,Account,NSString,PublicRSA,NSMutableDictionary,MBProgressHUD,NormalHTTPManger,NSUserDefaults,GetMCodeMessageViewController,NSIndexPath,Account,NSString,Token,PublicRSA,NSCharacterSet,WSLNetWorkingTool');
+require('OwnWebSocketUtil,WebSocketUtil,OneCoinMoneyChangeListViewController,YYZAlertView,BeginTranferMoneyViewController,GetMoneyViewController,NSIndexPath,Account,NSString,Token,PublicRSA,NSCharacterSet,WSLNetWorkingTool');
 defineClass('BeginTranferMoneyViewController', {
     OkPayViewOkPayPassword: function(payString) {
         self.setPayPwdView(null);
