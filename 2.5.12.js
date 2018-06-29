@@ -1,4 +1,4 @@
-require('OwnWebSocketUtil,WebSocketUtil');
+require('OwnWebSocketUtil,WebSocketUtil,OneCoinMoneyChangeListViewController,YYZAlertView,BeginTranferMoneyViewController,GetMoneyViewController');
 defineClass('BibiTransferInfoViewController', {
     viewWillAppear: function(animated) {
         self.super().viewWillAppear(animated);
