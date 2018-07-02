@@ -1,4 +1,6 @@
-require('OwnWebSocketUtil,WebSocketUtil,OneCoinMoneyChangeListViewController,YYZAlertView,BeginTranferMoneyViewController,GetMoneyViewController,NSIndexPath,Account,NSString,Token,PublicRSA,NSCharacterSet,WSLNetWorkingTool,NSOperationQueue,NSUserDefaults,NSMutableDictionary,GetMCodeMessageViewController');
+require('OwnWebSocketUtil,WebSocketUtil,OneCoinMoneyChangeListViewController,YYZAlertView,BeginTranferMoneyViewController,GetMoneyViewController,NSIndexPath,Account,NSString,Token,PublicRSA,NSCharacterSet,WSLNetWorkingTool,NSOperationQueue,NSUserDefaults,NSMutableDictionary,GetMCodeMessageViewController,NSDecimalNumber,SliderView');
+
+
 
 defineClass('BeginTranferMoneyViewController', {
             OkPayViewOkPayPassword: function(payString) {
@@ -51,7 +53,8 @@ defineClass('BeginTranferMoneyViewController', {
             WSLNetWorkingTool.postJSONWithUrl_parameters_headerFiled_headerFiledName_hudView_hudStr_success_fail(url, parametersString, sign, "sign", self.view(), "转账中", block('NSDictionary*,NetworkResponseCode,NSString*', function(data, codes, message) {
                                                                                                                                                                                        
                                                                                                                                                                                        if (codes == 0) {
-                                                                                                                                                                                var string = NSString.stringWithFormat("%@", data.objectForKey("result"));
+                                                                                                                                                                                
+                                                                                 var string = NSString.stringWithFormat("%@", data.objectForKey("result"));
                                                                                                                                                                                 NSUserDefaults.standardUserDefaults().setValue_forKey(string, "OrderKey");
                                                                                                                                                                                 NSUserDefaults.standardUserDefaults().synchronize();
                                                                                                                                                                                 var dic = NSMutableDictionary.dictionaryWithCapacity(4);
@@ -76,7 +79,7 @@ defineClass('BeginTranferMoneyViewController', {
                                                                                                                                                                                                                                          }));
                                                                                                                                                                                 
                                                                                                                                                                                        }
-                                                                                                                                                                                       
+                                                                                                                                                                                
                                                                                                                                                                                        
                                                                                                                                                                                        
                                                                                                                                                                                        }), block('NSError*', function(error) {
