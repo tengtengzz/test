@@ -1,4 +1,19 @@
-require('OwnWebSocketUtil,WebSocketUtil,OneCoinMoneyChangeListViewController,YYZAlertView,BeginTranferMoneyViewController,GetMoneyViewController,NSIndexPath,Account,NSString,Token,PublicRSA,NSCharacterSet,WSLNetWorkingTool,NSOperationQueue,NSUserDefaults,NSMutableDictionary,GetMCodeMessageViewController,NSDecimalNumber,SliderView');
+require('OwnWebSocketUtil,WebSocketUtil,OneCoinMoneyChangeListViewController,YYZAlertView,BeginTranferMoneyViewController,GetMoneyViewController,NSIndexPath,Account,NSString,Token,PublicRSA,NSCharacterSet,WSLNetWorkingTool,NSOperationQueue,NSUserDefaults,NSMutableDictionary,GetMCodeMessageViewController,NSDecimalNumber,SliderView,NSIndexPath,NSDictionary');
+
+defineClass('ChangeCoinTypeViewController', {
+            tableView_didSelectRowAtIndexPath: function(tableView, indexPath) {
+            self.tableView().reloadData();
+            var model = self.dataArray().objectAtIndex(indexPath.row());
+            //    存选中的币种 设置全局
+            var localDic = NSDictionary.dictionaryWithObject_forKey(model.coinName(), model.coinType());
+            NSUserDefaults.standardUserDefaults().setObject_forKey(localDic, "selectCoinTypesssssssssssssssssssss");
+            NSUserDefaults.standardUserDefaults().synchronize();
+            if (self.changeCoinTypeViewControllerGetCoinInfoCallback()) {
+            self.changeCoinTypeViewControllerGetCoinInfoCallback()(self, model);
+            }
+            
+            },
+            });
 
 
 
