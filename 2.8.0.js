@@ -98,6 +98,15 @@ defineClass('FinancialMainViewController', {
 
 
 
-
+defineClass('FinancialListTableViewCell', {
+            setModel: function(model) {
+            
+            self.titleTF().setText(model.name());
+            var rate = NSDecimalNumber.decimalNumberWithRoundUpString(model.rate());
+            var rateDec = rate * 100;
+            self.ratesTitleLabel().setText(NSString.stringWithFormat("%@%%", rateDec))
+            
+            },
+            });
 
 
