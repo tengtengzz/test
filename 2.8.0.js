@@ -85,7 +85,16 @@ defineClass('CoinKlineViewController', {
 
 
 
+defineClass('FinancialMainViewController', {
+    viewWillAppear: function(animated) {
+        self.super().viewWillAppear(animated);
+        self.loadDataWithHudView_hudStr(null, null);
+        var string = self.currentFinancialState();
+        self.setCurrentFinancialState(self.regularFinancialState());
+        self.setRegularFinancialState(string);
 
+    },
+});
 
 
 
