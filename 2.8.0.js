@@ -1,112 +1,47 @@
-require('NSDecimalNumber,NSDecimalNumberHandler,UIColor,NSMutableAttributedString,NSString');
-
-defineClass('NSObject', {
-            decimalNumberjingduMaket: function(str) {
-            var ssss = self.decimalNumberjingdu(str);
-            return ssss;
+require('NSString');
+defineClass('SampleClass', {
+            priceAddNumChangeAction: function(tf) {
+            if (self.priceTF().text().isPureInts() || self.priceTF().text().isPureFloats()) {
             
-            },
-            });
-defineClass('CoinKlineViewController', {
-            updateHeader: function(tick) {
-            if (tick) {
-            var prices = self.decimalNumberjingdu(tick.close());
-            self.priceLbl().setText(prices);
+            var moneyDec = self.priceTF().text().floatValue(); //   买入卖出价
             
-            // 计算涨跌幅
-//            var open = self.decimalNumberjingdu(tick.open());
-//            var close = self.decimalNumberjingdu(tick.close());
-            var open = tick.open().doubleValue();
-            var close = tick.close().doubleValue();
-
+            var market_colse = self.market_close().floatValue();
+            var conversionResult1 = market_colse * moneyDec;
+            var conversionResult = conversionResult1 * self.CNYRate().floatValue();
+            self.convertLbl().setText(NSString.stringWithFormat("≈ ¥ %.2f", conversionResult));
             
-            if (open == 0) {
-
-            self.rangeLbl().setText("0.00%");
-            self.rangeLbl().setTextColor(UIColor.green());
-
+            if (self.priceAmount()) {
+            var priceAmount = self.priceAmount().floatValue();
+            var multiplying = 0;
+            
+            if (self.transferType() == BibiTransferTypeBuy) {
+            //                        能卖出几个
+            multiplying = priceAmount / moneyDec;
+            self.validChooseLbl().setText(NSString.stringWithFormat("可买入 %.4f %@", multiplying, self.coin_name()));
+            
             } else {
-
-            var subtractResult =  close - open;
-            var devideResult = subtractResult / open;
-            var finalResult = devideResult * 100;
-            
-            if(finalResult == 0 ){
-
-            self.rangeLbl().setText("0.00%");
-            self.rangeLbl().setTextColor(UIColor.green());
-
-            }else if(finalResult < 0){
-
-            self.priceLbl().setTextColor(UIColor.red());
-            self.rangeLbl().setTextColor(UIColor.red());
-
-            var attrStr = NSString.stringWithFormat("涨幅 %@%%", finalResult.toFixed(2));
-            self.rangeLbl().setText(attrStr);
-
-
-            }else{
-
-            self.priceLbl().setTextColor(UIColor.green());
-            self.rangeLbl().setTextColor(UIColor.green());
-
-            var attrStr = NSString.stringWithFormat("涨幅 +%@%%", finalResult.toFixed(2));
-            self.rangeLbl().setText(attrStr);
-
-            }
-
+            //                        能买入几个
+            multiplying = priceAmount * moneyDec;
+            self.validChooseLbl().setText(NSString.stringWithFormat("可兑换  %.4f %@", multiplying, self.quote_name()));
             }
             
-            var amountAttr = self.decimalNumberjingdu(tick.amount());
-            var amountAttrStr = NSString.stringWithFormat("24H %ld", amountAttr);
-            self.amountLbl().setText(amountAttrStr);
+            }
             
-            var closes = NSDecimalNumber.decimalNumberWithString(tick.close());
-            var cNYRate = NSDecimalNumber.decimalNumberWithString(self.CNYRate());
-            var conversionResult = closes * cNYRate;
-            var conversionResultqqqq = NSString.stringWithFormat("%@", conversionResult);
-            var conversionResultss = self.decimalNumberjingdu(conversionResultqqqq);
+            if (self.numberTF().text().isPureInts() || self.numberTF().text().isPureFloats()) {
             
-            self.convesionLbl().setText(NSString.stringWithFormat("≈%@CNY", conversionResultss));
-            self.convesionLbl().setTextColor(UIColor.lightGrayColor());
+            //            数量
+            var minDec = self.numberTF().text().floatValue(); // 买入卖出数量
+            var multiplying = moneyDec * minDec;
+            self.tradeAmountLbl().setText(NSString.stringWithFormat("交易额 %2.f%@", multiplying, self.quote_name()));
             
-            
-            var highAttr = self.decimalNumberjingdu(tick.high());
-            var highAttrStr = NSString.stringWithFormat("最高 %@", highAttr);
-            self.highLbl().setText(highAttrStr);
-            
-            var lowAttr = self.decimalNumberjingdu(tick.low());
-            var lowAttrStr = NSString.stringWithFormat("最低 %@", lowAttr);
-            self.lowLbl().setText(lowAttrStr);
+            } else {
+            self.tradeAmountLbl().setText(NSString.stringWithFormat("交易额 0%@", self.quote_name()));
+            }
+            } else {
+            self.convertLbl().setText("");
+            self.tradeAmountLbl().setText(NSString.stringWithFormat("交易额 0%@", self.quote_name()));
             
             }
-            },
-            });
-
-
-
-defineClass('FinancialMainViewController', {
-    viewWillAppear: function(animated) {
-        self.super().viewWillAppear(animated);
-        self.loadDataWithHudView_hudStr(null, null);
-        var string = self.currentFinancialState();
-        self.setCurrentFinancialState(self.regularFinancialState());
-        self.setRegularFinancialState(string);
-
-    },
-});
-
-
-
-defineClass('FinancialListTableViewCell', {
-            setModel: function(model) {
-            
-            self.titleTF().setText(model.name());
-            var rate = NSDecimalNumber.decimalNumberWithRoundUpString(model.rate());
-            var rateDec = rate * 100;
-            self.ratesTitleLabel().setText(NSString.stringWithFormat("%@%%", rateDec))
             
             },
             });
-
-
