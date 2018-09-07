@@ -1,5 +1,5 @@
 require('NSString');
-defineClass('SampleClass', {
+defineClass('BibiTransferInfoView', {
             priceAddNumChangeAction: function(tf) {
             if (self.priceTF().text().isPureInts() || self.priceTF().text().isPureFloats()) {
             
