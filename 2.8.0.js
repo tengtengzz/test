@@ -5,24 +5,28 @@ defineClass('BibiTransferInfoView', {
             
             var moneyDec = self.priceTF().text().floatValue(); //   买入卖出价
             
-            var market_colse = self.market_close().floatValue();
-            var conversionResult1 = market_colse * moneyDec;
+            var marketcolse = self.market__close().floatValue();
+            var conversionResult1 = marketcolse * moneyDec;
             var conversionResult = conversionResult1 * self.CNYRate().floatValue();
-            self.convertLbl().setText(NSString.stringWithFormat("≈ ¥ %.2f", conversionResult));
+             conversionResult = conversionResult.toFixed(2); // 输出结果为 2.45
+            self.convertLbl().setText(NSString.stringWithFormat("≈ ¥ %@", conversionResult));
             
             if (self.priceAmount()) {
             var priceAmount = self.priceAmount().floatValue();
             var multiplying = 0;
             
-            if (self.transferType() == BibiTransferTypeBuy) {
+            if (self.transferType() == 1) {
             //                        能卖出几个
             multiplying = priceAmount / moneyDec;
-            self.validChooseLbl().setText(NSString.stringWithFormat("可买入 %.4f %@", multiplying, self.coin_name()));
+            multiplying = multiplying.toFixed(4); // 输出结果为 2.45
+
+            self.validChooseLbl().setText(NSString.stringWithFormat("可买入 %@ %@", multiplying,self.coin__name()));
             
             } else {
             //                        能买入几个
+            multiplying = multiplying.toFixed(4); // 输出结果为 2.45
             multiplying = priceAmount * moneyDec;
-            self.validChooseLbl().setText(NSString.stringWithFormat("可兑换  %.4f %@", multiplying, self.quote_name()));
+            self.validChooseLbl().setText(NSString.stringWithFormat("可兑换 %@ %@", multiplying,self.coin__name()));
             }
             
             }
@@ -32,14 +36,14 @@ defineClass('BibiTransferInfoView', {
             //            数量
             var minDec = self.numberTF().text().floatValue(); // 买入卖出数量
             var multiplying = moneyDec * minDec;
-            self.tradeAmountLbl().setText(NSString.stringWithFormat("交易额 %2.f%@", multiplying, self.quote_name()));
+            self.tradeAmountLbl().setText(NSString.stringWithFormat("交易额 %2.f%@", multiplying, self.quote__name()));
             
             } else {
-            self.tradeAmountLbl().setText(NSString.stringWithFormat("交易额 0%@", self.quote_name()));
+            self.tradeAmountLbl().setText(NSString.stringWithFormat("交易额 0%@", self.quote__name()));
             }
             } else {
             self.convertLbl().setText("");
-            self.tradeAmountLbl().setText(NSString.stringWithFormat("交易额 0%@", self.quote_name()));
+            self.tradeAmountLbl().setText(NSString.stringWithFormat("交易额 0%@", self.quote__name()));
             
             }
             
