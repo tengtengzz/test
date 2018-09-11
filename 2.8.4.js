@@ -1,4 +1,18 @@
-require('NSString');
+
+
+require('LCCKMessage,NSDate,NSString');
+defineClass('FriendConversationViewController', {
+    sendTextMessage: function(text) {
+        if (text.length() > 0) {
+
+            var lcckMessage = LCCKMessage.alloc().initWithText_senderId_sender_timestamp_serverMessageId(text, self.userId(), self.user(), (NSDate.date().timeIntervalSince1970() * 1000), null);
+            self.makeSureSendValidMessage_afterFetchedConversationShouldWithAssert(lcckMessage, NO);
+            self.chatViewModel().sendMessage(lcckMessage);
+
+        }
+    },
+});
+
 defineClass('BibiTransferInfoView', {
             priceAddNumChangeAction: function(tf) {
             if (self.priceTF().text().isPureInts() || self.priceTF().text().isPureFloats()) {
