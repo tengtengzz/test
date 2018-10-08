@@ -1,6 +1,59 @@
 
 
-require('LCCKMessage,NSDate,NSString');
+
+
+
+require('LCCKMessage,NSDate,NSString, UIView, UILayer, UIButton, UILabel, UIColor, UITextField, UIFont');
+defineClass('LockTransferView', {
+            layoutSubviews: function() {
+            self.super().layoutSubviews();
+            var string = " 收款人 ";
+            var font = self.nameTF().font();
+            var textColor = UIColor.colorWithRed_green_blue_alpha(51 / 255.0, 51 / 255.0, 51 / 255.0, 1);
+            // 密码输入框左边图片
+            var lockIv = UILabel.alloc().init();
+            lockIv.setTextColor(textColor);
+            lockIv.setFont(font);
+            lockIv.setText(string);
+            var ww  = self.heightAndWidthAndFontWithCGFloat(60);
+            var hh = self.heightAndWidthAndFontWithCGFloat(30);
+            var xx = 0;
+            var yy = 0;
+            var txfF = {x:xx, y:yy, width:ww, height:hh};
+            lockIv.setFrame(txfF);
+            
+            // 添加TextFiled的左边视图
+            self.nameTF().setLeftView(lockIv);
+            
+            // 设置TextField左边的总是显示
+            self.nameTF().setLeftViewMode(3);
+            
+            
+            
+            
+            
+            var strings = " 验证码 ";
+            var lockIv1 = UILabel.alloc().init();
+            lockIv1.setTextColor(textColor);
+            lockIv1.setFont(font);
+            lockIv1.setText(strings);
+
+            lockIv1.setFrame(txfF);
+            
+            // 添加TextFiled的左边视图
+            self.codeTF().setLeftView(lockIv1);
+            
+            // 设置TextField左边的总是显示
+            self.codeTF().setLeftViewMode(3);
+            
+            
+            self.nameTF().setPlaceholder("请输入收款人手机号或邮箱");
+            self.codeTF().setPlaceholder("请输入手机或邮箱验证码");
+            self.transferPwdTF().setPlaceholder("请输入交易密码");
+
+            },
+            });
+
 defineClass('FriendConversationViewController', {
     sendTextMessage: function(text) {
         if (text.length() > 0) {
