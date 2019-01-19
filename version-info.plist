@@ -7,6 +7,6 @@
 	<key>description</key>
 	<string>\n 增加活动奖励 \n界面优化 提高加载速度 \n提升用户体验  \n修复已知bug</string>
 	<key>url</key>
-	<string>https://www.bibaovip.com/static/download/index.html#</string>
+	<string>http://192.168.0.101:8080/html/download/download.html#</string>
 </dict>
 </plist>
