@@ -3,7 +3,9 @@ require('ApplyListModel,MerchantListModel,NSString,NSDecimalNumber,NSURL,NSObjec
 defineClass('BorrowMoneyDetailViewController', {
             viewDidAppear: function(animated) {
             self.super().viewDidAppear(animated);
-            var rateDec = NSDecimalNumber.decimalNumberWithRoundUpString(self.proModel().dayRates());
+            
+            var dayRates = NSString.stringWithFormat("%@", self.proModel().dayRates());
+            var rateDec = NSDecimalNumber.decimalNumberWithRoundUpString(dayRates);
             var minMinerFeeDec = NSDecimalNumber.decimalNumberWithString("100");
             var multiplDec = rateDec * minMinerFeeDec;
             self.dayRateLab().setText(NSString.stringWithFormat("%@%%", multiplDec));
@@ -13,7 +15,8 @@ defineClass('BorrowMoneyViewController', {
             viewDidAppear: function(animated) {
             self.super().viewDidAppear(animated);
             var proModel = ApplyDetailModel.mj__objectWithKeyValues(self.modelnew().project());
-            var rateDec = NSDecimalNumber.decimalNumberWithRoundUpString(proModel.dayRates());
+            var dayRates = NSString.stringWithFormat("%@", proModel.dayRates());
+            var rateDec = NSDecimalNumber.decimalNumberWithRoundUpString(dayRates);
             var minMinerFeeDec = NSDecimalNumber.decimalNumberWithString("100");
             var multiplDec = rateDec * minMinerFeeDec;
             self.rateLab().setText(NSString.stringWithFormat("%@%%", multiplDec));
@@ -39,7 +42,8 @@ defineClass('MerchantDetailOkTableViewCell', {
             var time = loanTime / repaymentIntervalTime;
             
             self.acomuntLab().setText(NSString.stringWithFormat("共%@期", time));
-            var rateDec = NSDecimalNumber.decimalNumberWithRoundUpString(proModel.dayRates());
+            var dayRates = NSString.stringWithFormat("%@", proModel.dayRates());
+            var rateDec = NSDecimalNumber.decimalNumberWithRoundUpString(dayRates);
             var minMinerFeeDec = NSDecimalNumber.decimalNumberWithString("100");
             var multiplDec = rateDec * minMinerFeeDec;
             self.rateLab().setText(NSString.stringWithFormat("%@%%", multiplDec));
@@ -75,7 +79,8 @@ defineClass('MerchantDetailTableViewCell', {
             var time = loanTime / repaymentIntervalTime;
 
             self.acomuntLab().setText(NSString.stringWithFormat("共%@期", time));
-            var rateDec = NSDecimalNumber.decimalNumberWithRoundUpString(model.dayRates());
+            var dayRates = NSString.stringWithFormat("%@", model.dayRates());
+            var rateDec = NSDecimalNumber.decimalNumberWithRoundUpString(dayRates);
             var minMinerFeeDec = NSDecimalNumber.decimalNumberWithString("100");
             var multiplDec = rateDec * minMinerFeeDec;
             self.rateLab().setText(NSString.stringWithFormat("%@%%", multiplDec));
@@ -170,13 +175,22 @@ defineClass('MerchantDetailOkTwoTableViewCell', {
             
             self.acomuntLab().setText(NSString.stringWithFormat("共%@期", time));
             
-            
-            
+            if (!model.dayRates() || model.dayRates().isEqual(" ")) {
             var dayRate = NSString.stringWithFormat("%@", model.project().objectForKey("dayRates"));
             var rateDec = NSDecimalNumber.decimalNumberWithRoundUpString(dayRate);
             var minMinerFeeDec = NSDecimalNumber.decimalNumberWithString("100");
             var multiplDec = rateDec * minMinerFeeDec;
             self.rateLab().setText(NSString.stringWithFormat("%@%%", multiplDec));
+            }else{
+            var rateDec = NSDecimalNumber.decimalNumberWithRoundUpString(NSString.stringWithFormat("%@", model.dayRates()));
+            var rateDec = NSDecimalNumber.decimalNumberWithRoundUpString(dayRate);
+            var minMinerFeeDec = NSDecimalNumber.decimalNumberWithString("100");
+            var multiplDec = rateDec * minMinerFeeDec;
+            self.rateLab().setText(NSString.stringWithFormat("%@%%", multiplDec));
+            
+            }
+            
+
             
             
             },
