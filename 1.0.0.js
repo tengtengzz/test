@@ -1,4 +1,25 @@
-require('ApplyListModel,MerchantListModel,NSString,NSDecimalNumber,NSURL,NSObject+MJKeyValue,UIView,ApplyDetailModel');
+require('ApplyListModel,MerchantListModel,NSString,NSDecimalNumber,NSURL,NSObject+MJKeyValue,UIView,ApplyDetailModel,UIFont,UIColor,RepaymentDetailTableViewCell,RepaymentDetailHeadView,ThreeZoneHeadView');
+
+
+
+defineClass('RepaymentDetailViewController', {
+            viewDidLoad: function() {
+            self.super().viewDidLoad();
+            self.setTitle("还款计划详情");
+            self.setnavigationBarTitleStyleWithFont_color(UIFont.systemFontOfSize(self.heightAndWidthAndFontWithCGFloat(18)), UIColor.black33());
+            self.view().setBackgroundColor(UIColor.colorWithHexString("#f7fafb"));
+            self.table().setSeparatorColor(UIColor.colorWithHexString("#e5e5e5"));
+            self.table().setBackgroundColor(UIColor.clearColor());
+            self.registerCellClass("RepaymentDetailTableViewCell");
+            self.registerHeaderClass("RepaymentDetailHeadView");
+            self.table().registerClass_forHeaderFooterViewReuseIdentifier(ThreeZoneHeadView.class(), "ThreeZoneHeadView");
+            self.setUnpaged(YES);
+            
+            self.loadList();
+            
+            },
+            });
+
 
 defineClass('BorrowMoneyDetailViewController', {
             viewDidAppear: function(animated) {
