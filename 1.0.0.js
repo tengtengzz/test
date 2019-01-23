@@ -63,7 +63,7 @@ defineClass('MerchantDetailTableViewCell', {
             if (state == 1) {
             self.acmountTitleLab().setText("可用额度(元)");
             }
-            if(model.merchantName() == null){
+           if(!model.merchantName()){
              self.titleTF().setText(model.name());
             }else{
              self.titleTF().setText(model.merchantName());
