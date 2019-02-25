@@ -1,4 +1,4 @@
-defineClass('MainSubviewViewController', {
+defineClass('TheMarketInfoListViewController', {
     viewWillAppear: function(animated) {
         self.super().viewWillAppear(animated);
         self.view().setBackgroundColor(BACKGROUND_ddCOLOR);
