@@ -1,12 +1,9 @@
-require('NormalHTTPManger,Timestamp_UNIX');
-defineClass('AppDelegate', {
-    getTimeString: function() {
-        //    获取网络时间戳 和本地时间做比较 取差值
-        NormalHTTPManger.n_POSTWithAPIName_parameters_completionBlock_failureBlock(GET_UNIX, null, block('BOOL,NSInteger,NSString*,id', function(isSuccessful, code, message, responseData) {
-            Timestamp_UNIX.shareTimestamp().saveTimestamp(responseData);
+defineClass('MainSubviewViewController', {
+    viewWillAppear: function(animated) {
+        self.super().viewWillAppear(animated);
+        self.view().setBackgroundColor(BACKGROUND_COLOR);
 
-        }), block('NSInteger,NSString*', function(code, errorString) {
-
-        }))
+        self.isAddGestureLock().isHaveFriendRequest(); //是否有好友请求
+        self.loadDataWithHudView_hudStr(null, null);
     },
 });
